@@ -6,6 +6,15 @@
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="department" property="department" jdbcType="VARCHAR" />
+
+    <result column="create_patientInfo" property="createPatientinfo" jdbcType="INTEGER" />
+    <result column="query_patientInfo" property="queryPatientinfo" jdbcType="INTEGER" />
+    <result column="create_treatRecord" property="createTreatrecord" jdbcType="INTEGER" />
+    <result column="query_case" property="queryCase" jdbcType="INTEGER" />
+    <result column="analysis_ai" property="analysisAi" jdbcType="INTEGER" />
+    <!--    <result column="create_treatPlan" property="createTreatplan" jdbcType="INTEGER" />-->
+    <result column="control_access" property="controlAccess" jdbcType="INTEGER" />
+
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,7 +75,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, username, password, department
+    id, username, password, department, create_patientInfo, query_patientInfo, create_treatRecord, query_case, analysis_ai, control_access
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zju.gcs.model.UserDOExample" >
     select
@@ -83,7 +92,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from user
     where id = #{id,jdbcType=INTEGER}
@@ -99,9 +108,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.zju.gcs.model.UserDO" >
-    insert into user (id, username, password, 
+    insert into user (id, username, password,
       department)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{department,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zju.gcs.model.UserDO" >
@@ -164,9 +173,9 @@
   <update id="updateByExample" parameterType="map" >
     update user
     set id = #{record.id,jdbcType=INTEGER},
-      username = #{record.username,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      department = #{record.department,jdbcType=VARCHAR}
+    username = #{record.username,jdbcType=VARCHAR},
+    password = #{record.password,jdbcType=VARCHAR},
+    department = #{record.department,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -191,6 +200,16 @@
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       department = #{department,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateAccessByPrimaryKey" parameterType="com.zju.gcs.model.UserDO" >
+    update user
+    set create_patientInfo = #{createPatientinfo,jdbcType=INTEGER},
+      query_patientInfo = #{queryPatientinfo,jdbcType=INTEGER},
+      create_treatRecord = #{createTreatrecord,jdbcType=INTEGER},
+      query_case = #{queryCase,jdbcType=INTEGER},
+      analysis_ai = #{analysisAi,jdbcType=INTEGER},
+      control_access = #{controlAccess,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

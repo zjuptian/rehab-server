@@ -27,4 +27,6 @@ public interface UserDOMapper {
     int updateByPrimaryKeySelective(UserDO record);
 
     int updateByPrimaryKey(UserDO record);
+
+    int updateAccessByPrimaryKey(UserDO record);
 }
